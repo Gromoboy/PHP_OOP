@@ -6,15 +6,15 @@
 //4. Придумать наследников класса из п.1. Чем они будут отличаться?
 class Product
 {
-  private $name;
-  private $price;
-  private $photo;
-  private $description;
+  protected $name;
+  protected $price;
+  protected $photos;
+  protected $description;
 
-  function __construct($name, $price, $photo, $description) {
+  function __construct($name, $price, $photos, $description) {
     $this->name = $name;
     $this->price = $price;
-    $this->photo = $photo;
+    $this->photos = $photos;
     $this->description = $description;
   }
 
@@ -34,12 +34,12 @@ class Product
     return $this->price;
   }
 
-  function setPhoto($photo) {
-    $this->photo = $photo;
+  function addPhoto($photo) {
+    $this->photos.push($photo) ;
   }
 
-  function GetPhoto() {
-    return $this->photo;
+  function GetPhoto($idx) {
+    return $this->photos[$idx];
   }
 
   function setDesc($description) {
