@@ -11,10 +11,16 @@ foreach ($img_dir_content as $dir_item) {
   $img_sources[] = $dir_item;
 }
 
+$key = array_search($_GET['img'], $img_sources);
+$query = 'modal.php?img=';
+// ссылки на предыдущую и следующую картинки
+$prev_ref = !empty($img_sources[$key - 1])
+  ? $query.$img_sources[$key - 1]
+  : $query.array_pop($img_sources);
+$next_ref = !empty($img_sources[$key + 1])
+  ?$query.$img_sources[$key+1]
+  :$query.array_shift($img_sources);
 
-$key = array_search($_GET['img'], $img_dir_content);
-$prev_ref = 'modal.php?img='.$img_sources[$key--];
-$next_ref = 'modal.php?img='.$img_sources[$key++];
 // наполнение шаблона и вывод результата
 require_once 'vendor/autoload.php';
 
