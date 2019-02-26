@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Галерея</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <section class="gallery-preview">
+        <h1>Предосмотр галереи</h1>
+        {% for name, sources in img_sources %}
+            {% for min_img, full_img in sources %}
+
+                <a href="{{ full_img }}" ><img src="{{ min_img }}" alt="{{ name }}"> </a>
+            {% endfor %}
+        {% endfor %}
+    </section>
+</body>
+</html>
