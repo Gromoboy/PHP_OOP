@@ -3,13 +3,15 @@ function index()
 {
   $_SESSION['title'] = 'Каталог';
 
-  $sql = "SELECT id, name, info, price FROM goods";
+  $limit = isset($_GET['rows']) ? ' LIMIT '.$_GET['rows'] : ' LIMIT 5';
+  $sql = "SELECT id, name, info, price FROM goods".$limit;
   $res = mysqli_query(connect(), $sql);
   $content = '';
   while ($row = mysqli_fetch_assoc($res)) {
     $content .= <<<php
-		<a href="?page=goods&func=one&id={$row['id']}">{$row['name']}</a><hr>
+    <a href="?page=goods&func=one&id={$row['id']}">{$row['name']}</a><hr>
 php;
+    // <button onclick=""
 
   }
 
