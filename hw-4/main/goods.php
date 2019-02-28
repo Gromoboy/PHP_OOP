@@ -1,39 +1,47 @@
 <?
-function index()
-{
+const DB_DRIVER = 'mysql', DB_HOST = 'localhost', DB_NAME = 'gbphp';
+const DSN = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
+const DB_USER = 'root', DB_PASS = '';
+
+function index() {
   $_SESSION['title'] = 'Каталог';
-  
+
   $goodsToShow = 25;
-  $limitFrom = isset($_REQUEST['from']) ? ' LIMIT '.$_REQUEST['from'].', ' : ' LIMIT ';
+  $limitFrom = isset($_REQUEST['from']) ? $_REQUEST['from'] : 0;
   $qty = isset($_REQUEST['rows']) ? $_REQUEST['rows'] : $goodsToShow;
 
-  $sql = "SELECT id, name, info, price FROM goods".$limitFrom.$qty;
-  // var_dump($sql);
-  $res = mysqli_query(connect(), $sql);
   $content = '';
-  while ($row = mysqli_fetch_assoc($res)) {
-    $content .= <<<php
+
+  try {
+    // PDO обеъект
+    $db = new PDO(DSN, DB_USER, DB_PASS);
+    $res = $db->query("SELECT * FROM goods LIMIT $limitFrom,$qty");
+//    var_dump($db->);
+    while ($row = $res->fetch()) {
+      $content .= <<<php
     <a href="?page=goods&func=one&id={$row['id']}">{$row['name']}</a><hr>
 php;
+    }
+  } catch (PDOException $e) {
+    die("Error: " . $e->getMessage());
   }
+
   // пришел запрос из Javascript через метод Post
   // type: "POST",
   // через Echo возвращаем данные клиенту (метод-событие succes в запросу ajax)
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo $content;
-
     exit;//выход из скрипт
   };
 
   $content .= <<<EOH
-  <button class="add-more" onclick="getMoreGoods($goodsToShow)">Eще</button>;
+  <button class="add-more" onclick="getMoreGoods($goodsToShow)">Eще</button>
 EOH;
 
   return $content;
 }
 
-function one()
-{
+function one() {
   $id = (int)$_GET['id'];
   $sql = "SELECT id, name, info, price FROM goods WHERE id = $id";
   $res = mysqli_query(connect(), $sql);
