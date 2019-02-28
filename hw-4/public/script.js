@@ -34,3 +34,17 @@ function changeOrderStatus(id) {
     }
   });
 }
+//Асинхронная подлрузка товаров
+function getMoreGoods(limit) {
+  if (typeof getMoreGoods.downlimit == 'undefined') getMoreGoods.downlimit = limit;
+  $.ajax({
+    type: 'POST',
+    url: `?page=goods&from=${getMoreGoods.downlimit}&rows=${limit}`,
+    success: function(data) {
+      $(data).insertBefore('.add-more');
+    }
+  });
+
+
+  getMoreGoods.downlimit += limit;
+}
