@@ -1,8 +1,13 @@
 <?php
 
 spl_autoload_register(function($classname) {
-	include_once("c/$classname.php");
+  // var_dump($classname[0]);
+  if ($classname[0] == 'C') include_once("c/$classname.php");
+  else include_once("m/$classname.php");
 });
+
+session_start();
+
 
 $action = 'action_';
 $action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';
