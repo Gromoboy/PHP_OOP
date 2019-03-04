@@ -17,6 +17,9 @@ switch ($_GET['c'])
 	case 'articles':
 		$controller = new C_Page();
 		break;
+  case 'auth':
+    $controller = new C_Auth();
+    break;
 	default:
 		$controller = new C_Page();
 }

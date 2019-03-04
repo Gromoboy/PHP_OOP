@@ -22,7 +22,7 @@
 	<div id="menu">
 		<a href="index.php">Читать текст</a> |
 		<a href="index.php?c=page&act=edit">Редактировать текст</a>
-    <a href="index.php?c=page&act=auth"><?=$auth?></a>
+    <a href="index.php?c=auth"><?=$auth?></a>
 	</div>
 	
 	<div id="content">

@@ -4,6 +4,7 @@
 //
 include_once('m/model.php');
 
+
 class C_Page extends C_Base
 {
   //
@@ -11,13 +12,13 @@ class C_Page extends C_Base
   //
 
   public function action_index() {
-    $this->title .= '::Чтение';
+    $this->setTitle('::Чтение');
     $text = text_get();
     $this->content = $this->Template('v/v_index.php', array('text' => $text));
   }
 
   public function action_edit() {
-    $this->title .= '::Редактирование';
+    $this->setTitle('::Редактирование');
 
     if ($this->isPost()) {
       text_set($_POST['text']);
@@ -29,13 +30,5 @@ class C_Page extends C_Base
     $this->content = $this->Template('v/v_edit.php', array('text' => $text));
   }
 
-  public function action_auth() {
-   $this->title .= '::Авторизация';
 
-   if ($this->isPost()) {
-
-   }
-
-   $this->content = $this->Template('v/v_login.php');
-  }
 }

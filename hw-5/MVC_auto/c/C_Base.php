@@ -4,9 +4,18 @@
 //
 abstract class C_Base extends C_Controller
 {
-	protected $title;		// заголовок страницы
+
+	private $title;		// заголовок страницы
   protected $content;		// содержание страницы
   protected $auth;
+  // Для запоминания посещения страниц
+  public function setTitle($title){
+    $this->title .= $title;
+    $this->pushTitleToHistory($title);
+  }
+  public function getTitle() {
+    return $this->title;
+  }
 
 	//
 	// Конструктор.
@@ -20,7 +29,7 @@ abstract class C_Base extends C_Controller
 	{
 		$this->title = 'Название сайта';
     $this->content = '';
-    $this->auth = 'Авторизироваться';
+    $this->auth = empty($this->getLogin()) ? 'Авторизироваться' : '@'.$this->getLogin();
 	}
 	
 	//
